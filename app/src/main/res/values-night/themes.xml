@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Counters" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Counters" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Accent brand color -->
         <item name="colorAccent">@color/app_tint</item>
         <!-- Primary brand color. -->
