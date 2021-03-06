@@ -11,8 +11,12 @@
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/action_mainFragment_to_createItemFragment"
-            app:destination="@id/createItemFragment" />
+            android:id="@+id/present_create_item"
+            app:destination="@id/createItemFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left"
+            app:popEnterAnim="@anim/slide_from_left"
+            app:popExitAnim="@anim/slide_to_right" />
     </fragment>
     <fragment
         android:id="@+id/welcomeFragment"
@@ -31,5 +35,18 @@
         android:id="@+id/createItemFragment"
         android:name="com.mtg.counters.modules.fr_create_item.CreateItemFragment"
         android:label="fragment_create_item"
-        tools:layout="@layout/fragment_create_item" />
+        tools:layout="@layout/fragment_create_item">
+        <action
+            android:id="@+id/present_examples"
+            app:destination="@id/examplesFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left"
+            app:popEnterAnim="@anim/slide_from_left"
+            app:popExitAnim="@anim/slide_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/examplesFragment"
+        android:name="com.mtg.counters.modules.fr_examples.ExamplesFragment"
+        android:label="fragment_examples"
+        tools:layout="@layout/fragment_examples" />
 </navigation>

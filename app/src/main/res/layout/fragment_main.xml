@@ -13,10 +13,6 @@
             android:id="@+id/toolbar_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentInsetStart="0dp"
-            android:contentInsetLeft="0dp"
-            android:contentInsetEnd="0dp"
-            android:contentInsetRight="0dp"
             android:gravity="center"
             app:contentInsetEnd="0dp"
             app:contentInsetLeft="0dp"
@@ -32,7 +28,60 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_search_bar" />
 
+            <LinearLayout
+                android:id="@+id/lyt_search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/img_back"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_back" />
+
+                <EditText
+                    android:id="@+id/edt_search"
+                    style="@style/EditText_Search"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="6">
+
+                    <requestFocus />
+                </EditText>
+
+                <ImageView
+                    android:id="@+id/img_close"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_close"
+                    android:visibility="invisible" />
+            </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
+
+        <View
+            android:id="@+id/view_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/toolbar_shadow"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_main" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_counters"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_main" />
 
         <Button
             android:id="@+id/btn_add_counter"

@@ -5,9 +5,19 @@
     <string name="t_welcome_tile">Counters</string>
     <string name="t_welcome_subtitle">Capture cups of lattes, frapuccinos, or anything else that can be counted.</string>
 
+    <!-- Create Item Strings -->
+    <string name="t_create_counter">Create counter</string>
+    <string name="t_see_examples">Give it a name. Creative block? See <u>examples</u>.</string>
+
     <!-- Button Strings -->
     <string name="t_btn_start">GET STARTED</string>
     <string name="t_btn_add_counter">ADD COUNTER</string>
+    <string name="t_btn_save">SAVE</string>
+
+    <!-- Hint Strings -->
+    <string name="h_search">Search Counters</string>
+    <string name="h_name">Name</string>
+    <string name="h_cups">Cups of coffee</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
