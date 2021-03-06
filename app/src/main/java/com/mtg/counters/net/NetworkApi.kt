@@ -7,6 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Converter
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -19,7 +20,7 @@ open class NetworkApi {
         private val SERVICE_URL = "http://187.190.189.67:3000/"
     }
 
-    fun getNetworkService(converterFactory: Converter.Factory): ApiService {
+    fun getNetworkService(): ApiService {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         val customClient = OkHttpClient.Builder().readTimeout(30, TimeUnit.SECONDS)
@@ -30,7 +31,7 @@ open class NetworkApi {
         }
         val clientBuilder = customClient.build()
         val builder = Retrofit.Builder().baseUrl(SERVICE_URL)
-                .addConverterFactory(converterFactory)
+                .addConverterFactory(GsonConverterFactory.create())
                 .client(clientBuilder).build()
         return builder.create(ApiService::class.java)
     }

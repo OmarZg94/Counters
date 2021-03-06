@@ -11,8 +11,10 @@ import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.mtg.counters.Application
 import com.mtg.counters.R
 import com.mtg.counters.databinding.FragmentCreateItemBinding
+import com.mtg.counters.extensions.isNetworkEnable
 import com.mtg.counters.extensions.showKeyboard
 
 
@@ -21,7 +23,7 @@ import com.mtg.counters.extensions.showKeyboard
  * Use the [CreateItemFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CreateItemFragment : Fragment(), View.OnClickListener {
+class CreateItemFragment : Fragment(), CreateItemPresenter, View.OnClickListener {
 
     private lateinit var binding: FragmentCreateItemBinding
     private var name: String = ""
@@ -39,6 +41,14 @@ class CreateItemFragment : Fragment(), View.OnClickListener {
         binding.txtSeeExamples.setOnClickListener(this)
     }
 
+    override fun onError(msg: String) {
+
+    }
+
+    override fun onCounterSave() {
+
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             binding.imgClose.id -> findNavController().popBackStack()
@@ -48,6 +58,12 @@ class CreateItemFragment : Fragment(), View.OnClickListener {
                     val alert = AlertDialog.Builder(activity)
                     alert.setTitle(getString(R.string.wt_empty_name))
                     alert.setMessage(getString(R.string.ws_empty_name))
+                    alert.setPositiveButton(getString(R.string.t_btn_ok), null)
+                    alert.show()
+                } else if (!Application.getContext().isNetworkEnable()) {
+                    val alert = AlertDialog.Builder(activity)
+                    alert.setTitle(getString(R.string.wt_cant_create_counter))
+                    alert.setMessage(getString(R.string.ws_offline_device))
                     alert.setPositiveButton(getString(R.string.t_btn_ok), null)
                     alert.show()
                 } else {
@@ -73,4 +89,9 @@ class CreateItemFragment : Fragment(), View.OnClickListener {
                     }
                 }
     }
+}
+
+interface CreateItemPresenter {
+    fun onError(msg: String)
+    fun onCounterSave()
 }
