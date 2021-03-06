@@ -9,7 +9,7 @@
         android:id="@+id/mainFragment"
         android:name="com.mtg.counters.modules.fr_main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_createItemFragment"
             app:destination="@id/createItemFragment" />
@@ -18,10 +18,14 @@
         android:id="@+id/welcomeFragment"
         android:name="com.mtg.counters.modules.fr_welcome.WelcomeFragment"
         android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome" >
+        tools:layout="@layout/fragment_welcome">
         <action
-            android:id="@+id/action_welcomeFragment_to_mainFragment2"
-            app:destination="@id/mainFragment" />
+            android:id="@+id/present_main_fragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_to_left"
+            app:popEnterAnim="@anim/slide_from_left"
+            app:popExitAnim="@anim/slide_to_right" />
     </fragment>
     <fragment
         android:id="@+id/createItemFragment"
