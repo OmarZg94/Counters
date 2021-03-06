@@ -13,11 +13,18 @@
     <string name="t_btn_start">GET STARTED</string>
     <string name="t_btn_add_counter">ADD COUNTER</string>
     <string name="t_btn_save">SAVE</string>
+    <string name="t_btn_ok">OK</string>
 
     <!-- Hint Strings -->
     <string name="h_search">Search Counters</string>
     <string name="h_name">Name</string>
     <string name="h_cups">Cups of coffee</string>
+
+    <!-- Warning Title Strings -->
+    <string name="wt_empty_name">Blank Name</string>
+
+    <!-- Warning Subtitle Strings -->
+    <string name="ws_empty_name">Please fill the name of the counter with a value</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
