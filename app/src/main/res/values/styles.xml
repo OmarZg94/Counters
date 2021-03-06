@@ -2,11 +2,22 @@
 <resources>
     <!-- Text View Style for Item Titles -->
     <style name="TextView_TitleItem">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">32sp</item>
-        <item name="android:fontFamily">@font/</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+
+    <!-- Text View Style for Item Subtitles -->
+    <style name="TextView_SubtitleItem">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/secondary</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/roboto</item>
     </style>
 
 </resources>
