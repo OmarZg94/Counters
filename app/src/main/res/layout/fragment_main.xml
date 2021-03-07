@@ -74,14 +74,80 @@
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_main" />
 
+        <TextView
+            android:id="@+id/txt_total_items"
+            style="@style/TextView_TitleItem2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_main" />
+
+        <TextView
+            android:id="@+id/txt_total_count"
+            style="@style/TextView_TitleItem2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/secondary"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/txt_total_items"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_main" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_counters"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_main" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_total_items"
+            tools:listitem="@layout/item_counter" />
+
+        <LinearLayout
+            android:id="@+id/lyt_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/whiteTransparent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ProgressBar
+                android:id="@+id/pgb_search_counters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+
+            <TextView
+                android:id="@+id/txt_no_counters"
+                style="@style/TextView_TitleItem"
+                android:text="@string/t_no_counters"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+            <TextView
+                android:id="@+id/txt_phrase"
+                style="@style/TextView_SubtitleItem"
+                android:layout_margin="16dp"
+                android:text="@string/t_no_counters_phrase"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_title" />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btn_add_counter"

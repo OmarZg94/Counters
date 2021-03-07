@@ -17,8 +17,8 @@ import java.util.concurrent.TimeUnit
 open class NetworkApi {
 
     companion object {
-        //private const val SERVICE_URL = "http://187.190.189.67:3000/"
-        private const val SERVICE_URL = "http://10.0.2.2:3000/"
+        //private const val SERVICE_URL = "http://187.190.189.67:3000/" // Consume this url when testing in physical devices
+        private const val SERVICE_URL = "http://10.0.2.2:3000/" // Consume this url when testing in emulators
     }
 
     fun getNetworkService(): ApiService {

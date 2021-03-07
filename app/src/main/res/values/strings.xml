@@ -11,6 +11,8 @@
     <!-- Create Item Strings -->
     <string name="t_create_counter">Create counter</string>
     <string name="t_see_examples">Give it a name. Creative block? See <u>examples</u>.</string>
+    <string name="t_no_counters">No counters yet</string>
+    <string name="t_no_counters_phrase">“When I started counting my blessings, my whole life turned around.” — Willie Nelson</string>
 
     <!-- Examples Strings -->
     <string name="t_examples">Examples</string>
@@ -24,6 +26,8 @@
     <string name="t_btn_add_counter">ADD COUNTER</string>
     <string name="t_btn_save">SAVE</string>
     <string name="t_btn_ok">OK</string>
+    <string name="t_btn_dismiss">DISMISS</string>
+    <string name="t_btn_retry">RETRY</string>
 
     <!-- Hint Strings -->
     <string name="h_search">Search Counters</string>
@@ -35,12 +39,14 @@
     <string name="wt_cant_create_counter">Couldn\'t create the counter</string>
     <string name="wt_internet_problem">Internet connection</string>
     <string name="wt_counter_created">Counter created</string>
+    <string name="wt_cant_update">Couln\'t update the "%s" counter to %s</string>
+    <string name="wt_cant_delete">Couln\'t delete the "%s" counter</string>
 
     <!-- Warning Subtitle Strings -->
     <string name="ws_empty_name">Please fill the name of the counter with a value</string>
-    <string name="ws_offline_device">The internet connect appears to be offline</string>
+    <string name="ws_offline_device">The internet connection appears to be offline</string>
 
     <!-- Newtork Error Strings -->
     <string name="e_connection_failed">Connection to server failed.</string>
-    <string name="e_connection_failed_status">Connection to server failed, status:</string>
+    <string name="e_connection_failed_status">Connection to server failed. Status: </string>
 </resources>
