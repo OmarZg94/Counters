@@ -23,10 +23,16 @@
     <!-- Warning Title Strings -->
     <string name="wt_empty_name">Blank Name</string>
     <string name="wt_cant_create_counter">Couldn\'t create the counter</string>
+    <string name="wt_internet_problem">Internet connection</string>
+    <string name="wt_counter_created">Counter created</string>
 
     <!-- Warning Subtitle Strings -->
     <string name="ws_empty_name">Please fill the name of the counter with a value</string>
     <string name="ws_offline_device">The internet connect appears to be offline</string>
+
+    <!-- Newtork Error Strings -->
+    <string name="e_connection_failed">Connection to server failed.</string>
+    <string name="e_connection_failed_status">Connection to server failed, status:</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

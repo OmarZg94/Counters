@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
 open class NetworkApi {
 
     companion object {
-        private val SERVICE_URL = "http://187.190.189.67:3000/"
+        private const val SERVICE_URL = "http://187.190.189.67:3000/"
     }
 
     fun getNetworkService(): ApiService {
@@ -61,4 +61,4 @@ data class IdRequest(@SerializedName("id") val id: String)
 /* Response Catalogs */
 data class CounterResponse(@SerializedName("id") val id: String,
                            @SerializedName("title") val title: String,
-                           @SerializedName("count") val count: Int)
+                           @SerializedName("count") val count: Long)

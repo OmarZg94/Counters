@@ -26,6 +26,7 @@ import com.mtg.counters.extensions.showKeyboard
 class CreateItemFragment : Fragment(), CreateItemPresenter, View.OnClickListener {
 
     private lateinit var binding: FragmentCreateItemBinding
+    private val iterator by lazy { CreateItemIterator(this) }
     private var name: String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -42,11 +43,26 @@ class CreateItemFragment : Fragment(), CreateItemPresenter, View.OnClickListener
     }
 
     override fun onError(msg: String) {
-
+        val alert = AlertDialog.Builder(activity)
+        alert.setTitle(getString(R.string.wt_internet_problem))
+        alert.setMessage(msg)
+        alert.setPositiveButton(getString(R.string.t_btn_ok)) { _,_ ->
+            binding.txtSaveItem.visibility = VISIBLE
+            binding.pgbCreateItem.visibility = GONE
+            binding.edtNameItem.isEnabled = true
+        }
+        alert.show()
     }
 
     override fun onCounterSave() {
-
+        val alert = AlertDialog.Builder(activity)
+        alert.setTitle(getString(R.string.wt_counter_created))
+        alert.setMessage("$name has been added to the system")
+        alert.setPositiveButton(getString(R.string.t_btn_ok)) { _,_ ->
+            findNavController().popBackStack()
+        }
+        alert.setCancelable(false)
+        alert.show()
     }
 
     override fun onClick(v: View?) {
@@ -70,6 +86,7 @@ class CreateItemFragment : Fragment(), CreateItemPresenter, View.OnClickListener
                     binding.txtSaveItem.visibility = GONE
                     binding.pgbCreateItem.visibility = VISIBLE
                     binding.edtNameItem.isEnabled = false
+                    iterator.saveCounter(name)
                 }
             }
         }
