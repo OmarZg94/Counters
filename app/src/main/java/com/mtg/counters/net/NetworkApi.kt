@@ -17,7 +17,8 @@ import java.util.concurrent.TimeUnit
 open class NetworkApi {
 
     companion object {
-        private const val SERVICE_URL = "http://187.190.189.67:3000/"
+        //private const val SERVICE_URL = "http://187.190.189.67:3000/"
+        private const val SERVICE_URL = "http://10.0.2.2:3000/"
     }
 
     fun getNetworkService(): ApiService {
@@ -26,9 +27,8 @@ open class NetworkApi {
         val customClient = OkHttpClient.Builder().readTimeout(30, TimeUnit.SECONDS)
                 .connectTimeout(30, TimeUnit.SECONDS)
         /* Enable interceptor only in debug mode */
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG)
             customClient.addInterceptor(interceptor)
-        }
         val clientBuilder = customClient.build()
         val builder = Retrofit.Builder().baseUrl(SERVICE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

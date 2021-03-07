@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Counters</string>
 
+    <!-- Preferences Strings -->
+    <string name="sp_example">sp_example</string>
+
     <!-- Welcome Screen Strings -->
     <string name="t_welcome_tile">Counters</string>
     <string name="t_welcome_subtitle">Capture cups of lattes, frapuccinos, or anything else that can be counted.</string>
@@ -8,6 +11,13 @@
     <!-- Create Item Strings -->
     <string name="t_create_counter">Create counter</string>
     <string name="t_see_examples">Give it a name. Creative block? See <u>examples</u>.</string>
+
+    <!-- Examples Strings -->
+    <string name="t_examples">Examples</string>
+    <string name="t_select_example">Select an example to add it to your counters.</string>
+    <string name="t_drinks">Drinks</string>
+    <string name="t_food">Food</string>
+    <string name="t_misc">Misc</string>
 
     <!-- Button Strings -->
     <string name="t_btn_start">GET STARTED</string>
@@ -33,7 +43,4 @@
     <!-- Newtork Error Strings -->
     <string name="e_connection_failed">Connection to server failed.</string>
     <string name="e_connection_failed_status">Connection to server failed, status:</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

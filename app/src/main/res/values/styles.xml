@@ -16,6 +16,11 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">18sp</item>
     </style>
+    <style name="TextView_TitleItem3">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 
     <!-- Text View Styles for Item Subtitles -->
     <style name="TextView_SubtitleItem">
@@ -35,6 +40,12 @@
     <style name="TextView_SubtitleItem3">
         <item name="android:textColor">@color/secondary</item>
         <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+    <style name="TextView_SubtitleItem4">
+        <item name="android:textColor">@color/secondary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/roboto</item>
     </style>
 

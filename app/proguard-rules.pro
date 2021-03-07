@@ -19,3 +19,24 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-printconfiguration "build/outputs/mapping/configuration.txt"
+-keepattributes LineNumberTable
+-keepattributes Signature
+-keepattributes Exceptions
+-keepattributes *Annotation*
+
+-keep class com.google.gson.annotations.SerializedName
+-keep class retrofit2.** { *;}
+-keep class okhttp3.** { *;}
+
+-keep interface retrofit2.** { *;}
+
+-keepclassmembers enum * { *; }
+
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
+
+-keepclassmembernames interface * {
+    @retrofit2.http.* <methods>;
+}
