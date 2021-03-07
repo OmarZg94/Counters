@@ -116,6 +116,7 @@
             android:background="@color/whiteTransparent"
             android:gravity="center"
             android:orientation="vertical"
+            android:clickable="false"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

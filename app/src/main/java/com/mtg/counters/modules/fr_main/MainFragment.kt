@@ -42,17 +42,6 @@ class MainFragment : Fragment(), MainPresenter, OnClickListener, CounterClickLis
 
     private fun initViews() {
         binding.rcvCounters.layoutManager = LinearLayoutManager(Application.getContext(), RecyclerView.VERTICAL, false)
-        iterator.getLastCounters().observe(viewLifecycleOwner, { counters ->
-            binding.lytLoading.visibility = GONE
-            binding.txtTotalItems.visibility = VISIBLE
-            binding.txtTotalItems.text = if (counters.size > 1) "${counters.size} items" else "${counters.size} item"
-            var times = 0L
-            counters.forEach { times += it.count }
-            binding.txtTotalCount.visibility = VISIBLE
-            binding.txtTotalCount.text = if (times > 1L) "$times times" else "$times time"
-            adapter = CounterAdapter(counters, this)
-            binding.rcvCounters.adapter = adapter
-        })
         binding.edtSearch.doOnTextChanged { text, _, _, count ->
             if (count == 0) {
                 binding.imgClose.visibility = INVISIBLE
@@ -60,28 +49,44 @@ class MainFragment : Fragment(), MainPresenter, OnClickListener, CounterClickLis
                 binding.imgClose.visibility = VISIBLE
             }
         }
-        binding.imgSearchBar.setOnClickListener(this)
         binding.imgBack.setOnClickListener(this)
         binding.imgClose.setOnClickListener(this)
         binding.btnAddCounter.setOnClickListener(this)
+        /* Download All Counters From Server */
+        if (!Application.getContext().isNetworkEnable()) {
+            val alert = AlertDialog.Builder(activity)
+            alert.setTitle(getString(R.string.wt_internet_problem))
+            alert.setMessage(getString(R.string.ws_offline_device))
+            alert.setPositiveButton(getString(R.string.t_btn_dismiss), null)
+            alert.setPositiveButton(getString(R.string.t_btn_retry)) { _, _ ->
+                binding.lytLoading.visibility = VISIBLE
+                iterator.downloadAllCounters()
+            }
+            alert.show()
+        } else {
+            binding.lytLoading.visibility = VISIBLE
+            iterator.downloadAllCounters()
+        }
     }
 
-    override fun onError(counter: Counters, msg: String, option: Int) {
+    override fun onError(counter: Counters?, msg: String, option: Int) {
         val alert = AlertDialog.Builder(activity)
         val title = when (option) {
-            OPTION_INCREMENT -> String.format(getString(R.string.wt_cant_update), counter.title, (counter.count + 1).toString())
-            OPTION_DECREMENT -> String.format(getString(R.string.wt_cant_update), counter.title, (counter.count - 1).toString())
-            else -> String.format(getString(R.string.wt_cant_delete), counter.title)
+            OPTION_INCREMENT -> String.format(getString(R.string.wt_cant_update), counter!!.title, (counter.count + 1).toString())
+            OPTION_DECREMENT -> String.format(getString(R.string.wt_cant_update), counter!!.title, (counter.count - 1).toString())
+            OPTION_DELETE -> String.format(getString(R.string.wt_cant_delete), counter!!.title)
+            else -> getString(R.string.wt_cant_download)
         }
         alert.setTitle(title)
         alert.setMessage(msg)
-        alert.setPositiveButton(getString(R.string.t_btn_dismiss)) { _,_ -> binding.lytLoading.visibility = GONE }
+        alert.setPositiveButton(getString(R.string.t_btn_dismiss)) { _, _ -> if (option != OPTION_GET_ALL) binding.lytLoading.visibility = GONE }
         alert.setNegativeButton(getString(R.string.t_btn_retry)) { _, _ ->
             binding.lytLoading.visibility = VISIBLE
             when (option) {
-                OPTION_INCREMENT -> iterator.incrementCounter(counter)
-                OPTION_DECREMENT -> iterator.decrementCount(counter)
-                OPTION_DELETE -> iterator.deleteCounter(counter)
+                OPTION_INCREMENT -> iterator.incrementCounter(counter!!)
+                OPTION_DECREMENT -> iterator.decrementCount(counter!!)
+                OPTION_DELETE -> iterator.deleteCounter(counter!!)
+                OPTION_GET_ALL -> iterator.downloadAllCounters()
             }
         }
         alert.setCancelable(false)
@@ -111,6 +116,31 @@ class MainFragment : Fragment(), MainPresenter, OnClickListener, CounterClickLis
             }
             binding.btnAddCounter.id -> findNavController().navigate(R.id.present_create_item)
         }
+    }
+
+    override fun showLiveCounters() {
+        iterator.getLastCounters().observe(viewLifecycleOwner, { counters ->
+            if (counters.size > 0) {
+                binding.lytLoading.visibility = GONE
+                binding.pgbSearchCounters.visibility = VISIBLE
+                binding.txtNoCounters.visibility = GONE
+                binding.txtPhrase.visibility = GONE
+                binding.txtTotalItems.visibility = VISIBLE
+                binding.txtTotalItems.text = if (counters.size > 1) "${counters.size} items" else "${counters.size} item"
+                var times = 0L
+                counters.forEach { times += it.count }
+                binding.txtTotalCount.visibility = VISIBLE
+                binding.txtTotalCount.text = if (times > 1L) "$times times" else "$times time"
+                adapter = CounterAdapter(counters, this)
+                binding.rcvCounters.adapter = adapter
+                binding.imgSearchBar.setOnClickListener(this)
+            } else {
+                binding.pgbSearchCounters.visibility = GONE
+                binding.txtNoCounters.visibility = VISIBLE
+                binding.txtPhrase.visibility = VISIBLE
+                binding.imgSearchBar.setOnClickListener(null)
+            }
+        })
     }
 
     override fun onAddCounter(counter: Counters) {
@@ -154,6 +184,7 @@ class MainFragment : Fragment(), MainPresenter, OnClickListener, CounterClickLis
         const val OPTION_INCREMENT = 1
         const val OPTION_DECREMENT = 2
         const val OPTION_DELETE = 3
+        const val OPTION_GET_ALL = 4
 
         /**
          * Use this factory method to create a new instance of
@@ -171,7 +202,8 @@ class MainFragment : Fragment(), MainPresenter, OnClickListener, CounterClickLis
 }
 
 interface MainPresenter {
-    fun onError(counter: Counters, msg: String, option: Int)
+    fun onError(counter: Counters?, msg: String, option: Int)
+    fun showLiveCounters()
 }
 
 interface CounterClickListener {

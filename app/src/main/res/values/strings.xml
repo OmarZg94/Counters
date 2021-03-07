@@ -39,8 +39,9 @@
     <string name="wt_cant_create_counter">Couldn\'t create the counter</string>
     <string name="wt_internet_problem">Internet connection</string>
     <string name="wt_counter_created">Counter created</string>
-    <string name="wt_cant_update">Couln\'t update the "%s" counter to %s</string>
-    <string name="wt_cant_delete">Couln\'t delete the "%s" counter</string>
+    <string name="wt_cant_update">Couldn\'t update the \"%s\" counter to %s</string>
+    <string name="wt_cant_delete">Couldn\'t delete the \"%s\" counter</string>
+    <string name="wt_cant_download">Couldn\'t download the counters</string>
 
     <!-- Warning Subtitle Strings -->
     <string name="ws_empty_name">Please fill the name of the counter with a value</string>

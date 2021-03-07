@@ -6,6 +6,7 @@ import com.mtg.counters.Application
 import com.mtg.counters.R
 import com.mtg.counters.db.entities.Counters
 import com.mtg.counters.db.managers.CountersMgr
+import com.mtg.counters.modules.fr_main.MainFragment.Companion.OPTION_GET_ALL
 import com.mtg.counters.modules.fr_main.MainFragment.Companion.OPTION_INCREMENT
 import com.mtg.counters.net.CounterResponse
 import com.mtg.counters.net.IdRequest
@@ -22,6 +23,29 @@ class MainIterator : ViewModel(), Iterator {
 
     override fun setListener(listener: MainPresenter) {
         this.listener = listener
+    }
+
+    override fun downloadAllCounters() {
+        networkApi.getNetworkService().getCounters().enqueue(object: Callback<MutableList<CounterResponse>>{
+            override fun onResponse(call: Call<MutableList<CounterResponse>>, response: Response<MutableList<CounterResponse>>) {
+                if (response.code() == HttpURLConnection.HTTP_OK){
+                    val result = response.body()!!
+                    val newCounters = mutableListOf<Counters>()
+                    result.forEach { newCounters.add(Counters(it.id, it.title, it.count)) }
+                    CountersMgr.insertCounters(newCounters)
+                    listener.showLiveCounters()
+                } else {
+                    listener.onError(null, Application.getContext().getString(R.string.e_connection_failed) + "${response.code()}", OPTION_GET_ALL)
+                    listener.showLiveCounters()
+                }
+            }
+
+            override fun onFailure(call: Call<MutableList<CounterResponse>>, t: Throwable) {
+                listener.onError(null, t.message
+                        ?: Application.getContext().getString(R.string.e_connection_failed), OPTION_GET_ALL)
+                listener.showLiveCounters()
+            }
+        })
     }
 
     override fun getLastCounters(): LiveData<MutableList<Counters>> {
@@ -60,6 +84,7 @@ class MainIterator : ViewModel(), Iterator {
 
 private interface Iterator {
     fun setListener(listener: MainPresenter)
+    fun downloadAllCounters()
     fun getLastCounters(): LiveData<MutableList<Counters>>
     fun incrementCounter(counter: Counters)
     fun decrementCount(counter: Counters)

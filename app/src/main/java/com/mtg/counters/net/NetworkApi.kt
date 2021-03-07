@@ -24,8 +24,8 @@ open class NetworkApi {
     fun getNetworkService(): ApiService {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
-        val customClient = OkHttpClient.Builder().readTimeout(30, TimeUnit.SECONDS)
-                .connectTimeout(30, TimeUnit.SECONDS)
+        val customClient = OkHttpClient.Builder().readTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
         /* Enable interceptor only in debug mode */
         if (BuildConfig.DEBUG)
             customClient.addInterceptor(interceptor)
