@@ -30,6 +30,7 @@ class ExamplesFragment : Fragment(), ExampleClickListener {
     }
 
     private fun initViews() {
+        binding.imgBack.setOnClickListener { findNavController().popBackStack() }
         binding.rcvDrinks.layoutManager = LinearLayoutManager(Application.getContext(), RecyclerView.HORIZONTAL, false)
         binding.rcvFood.layoutManager = LinearLayoutManager(Application.getContext(), RecyclerView.HORIZONTAL, false)
         binding.rcvMisc.layoutManager = LinearLayoutManager(Application.getContext(), RecyclerView.HORIZONTAL, false)

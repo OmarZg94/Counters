@@ -36,10 +36,18 @@ class CreateItemFragment : Fragment(), CreateItemPresenter, View.OnClickListener
     }
 
     private fun initViews() {
-        binding.edtNameItem.doOnTextChanged { text, _, _, _ -> name = text.toString().trim() }
+        binding.edtNameItem.doOnTextChanged { text, _, _, _ ->
+            name = text.toString().trim()
+        }
         binding.imgClose.setOnClickListener(this)
         binding.txtSaveItem.setOnClickListener(this)
         binding.txtSeeExamples.setOnClickListener(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val exampleSelected = iterator.getExampleSelected()
+        if (exampleSelected.isNotBlank()) binding.edtNameItem.setText(exampleSelected)
     }
 
     override fun onError(msg: String) {
@@ -90,6 +98,11 @@ class CreateItemFragment : Fragment(), CreateItemPresenter, View.OnClickListener
                 }
             }
         }
+    }
+
+    override fun onDetach() {
+        iterator.deleteExampleSelected()
+        super.onDetach()
     }
 
     companion object {

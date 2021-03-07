@@ -28,8 +28,8 @@ class Preferences(val context: Context) {
         return this.preferences.getBoolean(context.getString(key), defValue)
     }
 
-    fun loadData(key: Int, def: String): String? {
-        return this.preferences.getString(context.getString(key), def)
+    fun loadData(key: Int, def: String): String {
+        return this.preferences.getString(context.getString(key), def)!!
     }
 
     fun clearPreferences() {

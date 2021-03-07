@@ -14,6 +14,10 @@ import java.net.HttpURLConnection
 
 class CreateItemIterator(private val listener: CreateItemPresenter) : Iterator {
 
+    override fun getExampleSelected(): String = Application.getPreferences().loadData(R.string.sp_example, "")
+
+    override fun deleteExampleSelected() = Application.getPreferences().clearPreference(R.string.sp_example)
+
     override fun saveCounter(name: String) {
         val request = TitleRequest(name)
         NetworkApi().getNetworkService().saveCounter(request).enqueue(object : Callback<MutableList<CounterResponse>> {
@@ -41,4 +45,6 @@ class CreateItemIterator(private val listener: CreateItemPresenter) : Iterator {
 
 private interface Iterator {
     fun saveCounter(name: String)
+    fun getExampleSelected(): String
+    fun deleteExampleSelected()
 }
