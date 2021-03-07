@@ -13,6 +13,7 @@
     <string name="t_see_examples">Give it a name. Creative block? See <u>examples</u>.</string>
     <string name="t_no_counters">No counters yet</string>
     <string name="t_no_counters_phrase">“When I started counting my blessings, my whole life turned around.” — Willie Nelson</string>
+    <string name="t_empty_search">No results</string>
 
     <!-- Examples Strings -->
     <string name="t_examples">Examples</string>
@@ -28,6 +29,8 @@
     <string name="t_btn_ok">OK</string>
     <string name="t_btn_dismiss">DISMISS</string>
     <string name="t_btn_retry">RETRY</string>
+    <string name="t_btn_delete">DELETE</string>
+    <string name="t_btn_cancel">CANCEL</string>
 
     <!-- Hint Strings -->
     <string name="h_search">Search Counters</string>

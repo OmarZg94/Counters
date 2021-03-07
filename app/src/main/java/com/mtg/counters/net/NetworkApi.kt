@@ -8,10 +8,7 @@ import retrofit2.Call
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 import java.util.concurrent.TimeUnit
 
 open class NetworkApi {
@@ -49,7 +46,7 @@ open class NetworkApi {
         @POST("api/v1/counter/dec/")
         fun decrementCounter(@Body body: IdRequest): Call<MutableList<CounterResponse>>
 
-        @DELETE("api/v1/counter/")
+        @HTTP(method = "DELETE", path = "api/v1/counter/", hasBody = true)
         fun deleteCounter(@Body body: IdRequest): Call<MutableList<CounterResponse>>
     }
 }
