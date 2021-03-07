@@ -49,8 +49,8 @@
             app:layout_constraintStart_toEndOf="@+id/txt_total_items"
             app:layout_constraintTop_toBottomOf="@+id/view_shadow" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_counters"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swp_counters"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
@@ -58,8 +58,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_total_items"
-            tools:listitem="@layout/item_counter" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_total_items">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_counters"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/item_counter" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <TextView
             android:id="@+id/txt_empty_search"

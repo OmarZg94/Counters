@@ -1,6 +1,7 @@
 package com.mtg.counters.modules.fr_main
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -61,6 +62,8 @@ class MainFragment : Fragment(), MainPresenter, OnClickListener, CounterClickLis
             binding.lytLoading.visibility = VISIBLE
             iterator.downloadAllCounters()
         }
+        binding.swpCounters.setColorSchemeResources(R.color.app_tint)
+        binding.swpCounters.setProgressBackgroundColorSchemeResource(R.color.white)
     }
 
     override fun onResume() {
@@ -140,12 +143,27 @@ class MainFragment : Fragment(), MainPresenter, OnClickListener, CounterClickLis
                 alert.setNegativeButton(getString(R.string.t_btn_cancel), null)
                 alert.show()
             }
+            binding.toolbarMain.imgShare.id -> {
+                var textToShare = ""
+                adapter.getFilteredList().forEach {
+                    if (it.isSelected) textToShare += "${it.count} × ${it.title} - "
+                }
+                val intent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, textToShare.substring(0, textToShare.length-3))
+                    type = "text/plain"
+                }
+                val shareIntent = Intent.createChooser(intent, null)
+                startActivity(shareIntent)
+            }
             binding.btnAddCounter.id -> findNavController().navigate(R.id.present_create_item)
         }
     }
 
+    /* Callback To Manage The Visibility And Refresh Of Counters List To The UI */
     override fun showLiveCounters() {
         iterator.getLastCounters().observe(viewLifecycleOwner, { counters ->
+            binding.swpCounters.isRefreshing = false
             adapter = CounterAdapter(counters, this)
             binding.rcvCounters.adapter = adapter
             if (counters.size > 0) {
@@ -160,6 +178,11 @@ class MainFragment : Fragment(), MainPresenter, OnClickListener, CounterClickLis
                 binding.txtTotalCount.visibility = VISIBLE
                 binding.txtTotalCount.text = if (times > 1L) "$times times" else "$times time"
                 binding.toolbarMain.imgSearchBar.setOnClickListener(this)
+                binding.swpCounters.isEnabled = true
+                binding.swpCounters.setOnRefreshListener {
+                    binding.swpCounters.isRefreshing = true
+                    iterator.downloadAllCounters()
+                }
             } else {
                 binding.pgbSearchCounters.visibility = GONE
                 binding.txtNoCounters.visibility = VISIBLE
@@ -167,6 +190,7 @@ class MainFragment : Fragment(), MainPresenter, OnClickListener, CounterClickLis
                 binding.txtTotalItems.visibility = GONE
                 binding.txtTotalCount.visibility = GONE
                 binding.toolbarMain.imgSearchBar.setOnClickListener(null)
+                binding.swpCounters.isEnabled = false
             }
         })
         binding.toolbarMain.edtSearch.doOnTextChanged { text, _, _, count ->
@@ -181,6 +205,7 @@ class MainFragment : Fragment(), MainPresenter, OnClickListener, CounterClickLis
         }
     }
 
+    /* Callback To Manage When User Click The Add Button Of The List */
     override fun onAddCounter(counter: Counters) {
         if (!Application.getContext().isNetworkEnable()) {
             val alert = AlertDialog.Builder(activity)
@@ -194,6 +219,7 @@ class MainFragment : Fragment(), MainPresenter, OnClickListener, CounterClickLis
         }
     }
 
+    /* Callback To Manage When User Click The Subtraction Button Of The List */
     override fun onSubtractCounter(counter: Counters) {
         if (!Application.getContext().isNetworkEnable()) {
             val alert = AlertDialog.Builder(activity)
@@ -207,6 +233,7 @@ class MainFragment : Fragment(), MainPresenter, OnClickListener, CounterClickLis
         }
     }
 
+    /* Callback To Manage When User Long Pressed A Counter Item For The First Time */
     override fun onEditingCounters() {
         binding.toolbarMain.imgSearchBar.visibility = GONE
         binding.toolbarMain.lytShareBar.visibility = VISIBLE
@@ -216,6 +243,7 @@ class MainFragment : Fragment(), MainPresenter, OnClickListener, CounterClickLis
         binding.toolbarMain.imgShare.setOnClickListener(this)
     }
 
+    /* Callback To Manage When User Select A Counter Of Editing List */
     override fun onSelectCounter() {
         var totalItemsSelected = 0
         adapter.getFilteredList().forEach { if (it.isSelected) totalItemsSelected++ }
@@ -225,6 +253,7 @@ class MainFragment : Fragment(), MainPresenter, OnClickListener, CounterClickLis
             binding.toolbarMain.imgCloseShare.performClick()
     }
 
+    /* Callback To Manage The Publish Results Of The Filtering Action */
     override fun onFilterComplete() {
         if (adapter.itemCount == 0) {
             binding.txtTotalItems.visibility = GONE
@@ -242,6 +271,7 @@ class MainFragment : Fragment(), MainPresenter, OnClickListener, CounterClickLis
         }
     }
 
+    /* Callback When Delete Counters Of Server Are Finished */
     override fun onDeleteCounterComplete() {
         binding.toolbarMain.imgCloseShare.performClick()
         showLiveCounters()
