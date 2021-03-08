@@ -20,6 +20,7 @@ class CounterAdapter(private var list: MutableList<Counters>, private var listen
 
     private var filteredList: MutableList<Counters>
     private var isEditing = false
+    private var isFiltering = false
 
     init {
         setHasStableIds(true)
@@ -52,12 +53,16 @@ class CounterAdapter(private var list: MutableList<Counters>, private var listen
             holder.getBinding().imgCheck.visibility = GONE
             holder.getBinding().clyItemCounter.setBackgroundColor(Color.TRANSPARENT)
             /* Manage Editing Callback */
-            holder.getBinding().clyItemCounter.setOnLongClickListener {
-                isEditing = true
-                filteredList[position].isSelected = true
-                listener.onEditingCounters()
-                notifyDataSetChanged()
-                true
+            if (!isFiltering) {
+                holder.getBinding().clyItemCounter.setOnLongClickListener {
+                    isEditing = true
+                    filteredList[position].isSelected = true
+                    listener.onEditingCounters()
+                    notifyDataSetChanged()
+                    true
+                }
+            } else {
+                holder.getBinding().clyItemCounter.setOnLongClickListener(null)
             }
         } else {
             holder.getBinding().imgMinus.visibility = GONE
@@ -109,6 +114,7 @@ class CounterAdapter(private var list: MutableList<Counters>, private var listen
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                isFiltering = !(constraint == null || constraint.isEmpty())
                 notifyDataSetChanged()
                 listener.onFilterComplete()
             }
