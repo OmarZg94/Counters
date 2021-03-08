@@ -10,7 +10,7 @@ import com.mtg.counters.db.entities.Counters
 @Dao
 interface CountersDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(counter: Counters)
+    fun insert(counter: Counters)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(counters: MutableList<Counters>)

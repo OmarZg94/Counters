@@ -15,7 +15,6 @@ import com.mtg.counters.Application
 import com.mtg.counters.R
 import com.mtg.counters.databinding.FragmentCreateItemBinding
 import com.mtg.counters.extensions.isNetworkEnable
-import com.mtg.counters.extensions.showKeyboard
 
 
 /**
